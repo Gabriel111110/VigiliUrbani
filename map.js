@@ -4,7 +4,11 @@ export const generateMap = () => {
     let places = [
        {
           name: "Piazza del Duomo",
-          coords: [45.4639102, 9.1906426]
+          coords: [45.4639102, 9.1906426],
+          dataInc : "27-02-2024",
+          oraInc : "8:20",
+          mortiInc : 4,
+          feritiInc : 4
        }
     ];
  
@@ -16,7 +20,7 @@ export const generateMap = () => {
     return {
      
        build: () => {
-          map = L.map("map").setView(places[0].coords, zoom);
+          map = L.map("map").setView(places[places.length-1].coords, zoom);
        },
  
      
@@ -29,7 +33,7 @@ export const generateMap = () => {
  
           places.forEach((place) => {
              const marker = L.marker(place.coords).addTo(map);
-             marker.bindPopup(`<b>${place.name}</b>`);
+             marker.bindPopup(`<b>${place.name}<br>data: ${place.dataInc}<br>ora: ${place.oraInc}<br>feriti: ${place.feritiInc}<br>morti: ${place.mortiInc}</b>`);
           });
        },
  
