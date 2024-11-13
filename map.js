@@ -19,7 +19,7 @@ export const generateMap = () => {
           map = L.map("map").setView(places[0].coords, zoom);
        },
  
-     
+       //render
        render: () => {
           
           L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
