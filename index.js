@@ -10,15 +10,26 @@ const data1=document.getElementById("idData");//campo i testo dove inserire l'in
 const ora=document.getElementById("idOra");
 const morti=document.getElementById("idMorti");//campo i testo dove inserire l'indirizzo
 const feriti=document.getElementById("idFeriti");//campo i testo dove inserire l'indirizzo
+const table = createTable(document.querySelector("#tabella"));
 let map = generateMap();
+let array = [];
 let fetchC = fetchComponent();
 fetchC.build("cb6e2971-c0e8-4b36-99a3-4792429bab2f");
-map.build();
-/*fetchC.getData("places").then(res =>{
+
+fetchC.getData("incidenti").then(res =>{
     map.addAllPlaces(res)
+    map.build();
     map.render();
-})*/
+    array=map.getPlaces();
+    let tmp =[];
+    array.forEach(e =>{
+        tmp.push([e.name,e.dataInc,e.oraInc,e.mortiInc,e.feritiInc])
+    })
+    table.build(tmp);
+    table.render()
+})
 map.render();
+
 
 btnInvia.onclick=()=>{
     let url ="https://us1.locationiq.com/v1/search?key="+apiTokenLocation+"&q=%LOCATION, Milano&format=json&";
@@ -46,12 +57,19 @@ btnInvia.onclick=()=>{
             mortiInc : mortiIncidenti,
             feritiInc : feritiIncidenti
         }
-
+        array.push(data);
+        let tmp =[];
+        array.forEach(e =>{
+            tmp.push([e.name,e.dataInc,e.oraInc,e.mortiInc,e.feritiInc])
+        })
+        table.build(tmp);
+        table.render()
+        
         console.log(data);
         indirizzo.value="";
         map.addPlace(data)
         map.render();
-        //fetchC.setData("places",map.getPlaces());
+        fetchC.setData("incidenti",array);
         
     });
 }
