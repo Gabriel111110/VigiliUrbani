@@ -11,12 +11,34 @@ const ora=document.getElementById("idOra");
 const morti=document.getElementById("idMorti");//campo i testo dove inserire l'indirizzo
 const feriti=document.getElementById("idFeriti");//campo i testo dove inserire l'indirizzo
 const table = createTable(document.querySelector("#tabella"));
+let cerca = document.querySelector("#cerca")
+let filtra = document.querySelector("#filtra")
 let map = generateMap();
 let array = [];
 let fetchC = fetchComponent();
+
 fetchC.build("cb6e2971-c0e8-4b36-99a3-4792429bab2f");
+function isValidDate(inputDate) {
+
+    const [year, month, day] = inputDate.split('-').map(Number);
+    
+    const inputDateObj = new Date(year, month - 1, day); 
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); 
+
+
+    if (inputDateObj < today) {
+        return true
+    } else if (inputDateObj > today) {
+        return false
+    } else {
+       return true
+    }
+}
 
 fetchC.getData("incidenti").then(res =>{
+    res =res.filter(item => isValidDate(item.dataInc));
     map.addAllPlaces(res)
     map.build();
     map.render();
@@ -28,7 +50,7 @@ fetchC.getData("incidenti").then(res =>{
     table.build(tmp);
     table.render()
 })
-map.render();
+
 
 
 btnInvia.onclick=()=>{
@@ -57,6 +79,7 @@ btnInvia.onclick=()=>{
             mortiInc : mortiIncidenti,
             feritiInc : feritiIncidenti
         }
+        if(isValidDate(dataIncidente)===true){
         array.push(data);
         let tmp =[];
         array.forEach(e =>{
@@ -67,9 +90,41 @@ btnInvia.onclick=()=>{
         
         console.log(data);
         indirizzo.value="";
+        ora.value=""
+        morti.value="";
+        feriti.value=""
+        data1.value=""
+
         map.addPlace(data)
         map.render();
+       // array =  array.filter((item, index) => array.indexOf(item) === index);
+       
         fetchC.setData("incidenti",array);
+    }else{
+        indirizzo.value="";
+        ora.value=""
+        morti.value="";
+        feriti.value=""
+        data1.value=""
+    }
         
     });
+}
+function filterTable(query) {
+    const filteredData = map.getPlaces().filter(place => 
+        place.name.toLowerCase().includes(query)
+    );
+    let tmp =[];
+    filteredData.forEach(e =>{
+        tmp.push([e.name,e.dataInc,e.oraInc,e.mortiInc,e.feritiInc])
+    })
+    console.log(filteredData)
+    console.log(map.getPlaces())
+    table.setData(tmp)
+    table.render(); // Aggiorna la tabella con i dati filtrati
+}
+filtra.onclick=()=>{
+    let inp = cerca.value.toLowerCase();
+    console.log(inp)
+    filterTable(inp);
 }

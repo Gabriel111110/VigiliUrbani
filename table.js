@@ -5,7 +5,7 @@ export const createTable = (parentElement) => {
         data = dataInput;
       },
       render: () => {
-        let htmlTable = "<table class='table table-bordered'> <th>Nome</th> <th>data</th> <th>Ora</th> <th>Morti</th> <th>Feriti</th>";
+        let htmlTable = "<table class='table table-bordered' style='overflow-y:scroll;' > <th>Nome</th> <th>data</th> <th>Ora</th> <th>Morti</th> <th>Feriti</th>";
         htmlTable += data.map((row) => 
           "<tr>" + row.map((col) => 
             "<td>" + col + "</td>"
@@ -13,6 +13,12 @@ export const createTable = (parentElement) => {
         ).join("") + "</tr>";
         htmlTable += "</table";
         parentElement.innerHTML = htmlTable;
+      },
+      getData : ()=>{
+        return data;
+      },
+      setData: (d)=>{
+        data = d;
       }
     }
   }
