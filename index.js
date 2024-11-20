@@ -1,7 +1,8 @@
 import { generateMap } from "./map.js";
 import { fetchComponent } from "./fetch.js";
 import { createTable } from "./table.js";
-
+import { createLogin } from "./login.js";
+import { createRegister } from "./register.js";
 let aggiungiIncidente = document.querySelector("#aggiungiIncidente");
 const apiTokenLocation = "pk.215a9e370a8ded2ada287a67d2b90aaf";
 const btnInvia=document.querySelector("#prenotaButton")//bottone per inviare l'indirizzo
@@ -13,10 +14,20 @@ const feriti=document.getElementById("idFeriti");//campo i testo dove inserire l
 const table = createTable(document.querySelector("#tabella"));
 let cerca = document.querySelector("#cerca")
 let filtra = document.querySelector("#filtra")
+const login = createLogin();
+const register = createRegister();
 let map = generateMap();
 let array = [];
 let fetchC = fetchComponent();
-
+document.querySelector("#aggiungiIncidente").classList.add("hidden")
+console.log(login.isLogged())
+if(login.isLogged()===false){
+    document.querySelector("#aggiungiIncidente").classList.add("hidden");
+    document.querySelector("#aggiungiIncidente").classList.add("visibile");
+}else{
+    document.querySelector("#aggiungiIncidente").classList.remove("hidden");
+    document.querySelector("#aggiungiIncidente").classList.add("visibile"); 
+}
 fetchC.build("cb6e2971-c0e8-4b36-99a3-4792429bab2f");
 function isValidDate(inputDate) {
 
