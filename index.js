@@ -21,14 +21,8 @@ let array = [];
 let fetchC = fetchComponent();
 document.querySelector("#aggiungiIncidente").classList.add("hidden")
 console.log(login.isLogged())
-if(login.isLogged()===false){
-    document.querySelector("#aggiungiIncidente").classList.add("hidden");
-    document.querySelector("#aggiungiIncidente").classList.add("visibile");
-}else{
-    document.querySelector("#aggiungiIncidente").classList.remove("hidden");
-    document.querySelector("#aggiungiIncidente").classList.add("visibile"); 
-}
-fetchC.build("cb6e2971-c0e8-4b36-99a3-4792429bab2f");
+
+fetchC.build("01aeec9c-9533-46c4-85e1-dfc449335c90f");
 function isValidDate(inputDate) {
 
     const [year, month, day] = inputDate.split('-').map(Number);

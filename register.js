@@ -1,5 +1,5 @@
 export const createRegister = () => {
-    const myToken = "5e78f06b-1635-4528-aec8-ebb4607134a8"; // token ottenuto via mail 
+    const myToken = "01aeec9c-9533-46c4-85e1-dfc449335c90"; // token ottenuto via mail 
     const inputName = document.querySelector("#nameR");
     const inputPassword = document.querySelector("#passwordR");
     const registerButton = document.querySelector("#register");
@@ -11,7 +11,7 @@ export const createRegister = () => {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
-                    "key": myToken
+                    "key": "01aeec9c-9533-46c4-85e1-dfc449335c90"
                 },
                 body: JSON.stringify({
                     username: username,
@@ -28,8 +28,8 @@ export const createRegister = () => {
     };
   
     registerButton.onclick = () => {
-        const username = inputName.value; // Ottiene il valore dall'input
-        const password = inputPassword.value; // Ottiene il valore dall'input
+        const username = inputName.value;
+        const password = inputPassword.value; 
         register(username,password);
         inputName.value="";
         inputPassword.value="";
@@ -37,7 +37,7 @@ export const createRegister = () => {
     };
   
     return {
-        isLogged: () => isLogged // Espone una funzione per verificare lo stato di login
+        isLogged: () => isLogged 
     };
   };
   

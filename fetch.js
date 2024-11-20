@@ -11,7 +11,7 @@ export const fetchComponent = () => {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",
-                        "key": token
+                        "key": "01aeec9c-9533-46c4-85e1-dfc449335c90"
                     },
                     body: JSON.stringify({
                         key: key,
@@ -28,7 +28,7 @@ export const fetchComponent = () => {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",
-                        "key": token
+                        "key": "01aeec9c-9533-46c4-85e1-dfc449335c90"
                     },
                     body: JSON.stringify({
                         key: key
